@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camisa10</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header>
+  <div class="centro-header">
+    <img src="img/logo_site_camisa_10.png" class="logo">
+  </div>
+
+  <div class="perfil-container">
+    <button id="btnPerfil" class="btn-perfil">
+      <img src="img/icon_user.png" alt="Usuário">
+    </button>
+
+    <div id="menuPerfil" class="menu-perfil">
+      <div class="perfil-info">
+        <img src="img/icon_user.png" alt="">
+        <div>
+          <small>Olá:</small>
+          <span id="usuarioHeader"></span>
+        </div>
+      </div>
+
+      <a href="/historico/historico.html">
+        📜 Histórico de Apostas
+      </a>
+
+      <a href="/info/contato.html">
+        📞 Contato / Suporte
+      </a>
+
+      <a href="/info/ajuda_regras.html">
+        ❓ Ajuda / Regulamento
+      </a>
+
+      <button onclick="logout()">
+        🚪 Sair do App
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id="bannerPrincipalContainer" class="banner-principal-container" style="display:none;">
+    <img id="bannerPrincipalImg" class="banner-principal-img" src="" alt="Banner">
+  </div>
+
+  <section class="container-botoes">
+    <div class="grid-botoes">
+      <a href="/pag_palpites/palpites.html" class="card-botao-menu">
+        <div class="icone-verde-quadrado">
+          <img src="/img/icon_btn_aposta.png" alt="Fazer Aposta" class="img-botao-menu">
+        </div>
+        <span class="texto-botao-menu">APOSTAR ⚽</span>
+      </a>
+
+      <a href="/historico/historico.html" class="card-botao-menu">
+        <div class="icone-verde-quadrado">
+          <img src="/img/icon_btn_historico.png" alt="Minhas Apostas" class="img-botao-menu">
+        </div>
+        <span class="texto-botao-menu">MINHAS APOSTAS</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="secao-ranking">
+    <h2 class="titulo-secao">🏆 Top Ranking Camisa10</h2>
+      <p class="subtitulo-secao">Placar Exato (P.E): 10 pontos<br>
+      Tendência (T): 5 pontos</p>
+    
+
+    <div id="contadorRodadas" class="contador-rodadas" style="display:none;"></div>
+
+    <div class="ranking-responsivo">
+      <table class="tabela-ranking">
+        <thead>
+          <tr>
+            <th class="col-pos">#</th>
+            <th class="col-nome">NOME</th>
+            <th class="col-dados">P.E</th>
+            <th class="col-dados">T</th>
+            <th class="col-dados text-verde">PTS</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaRankingGeralClientes">
+          <tr>
+            <td colspan="5" class="status-carregando">Carregando ranking em tempo real...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- 1. Espaço adicionado para mostrar a posição do usuário -->
+    <div id="suaPosicaoRanking"></div>
+  </section>
+
+  <section class="secao-ganhadores">
+    <h2 class="titulo-secao">💰 Últimos Ganhadores</h2>
+    <p class="subtitulo-secao">Quem faturou recentemente no Camisa10.</p>
+    <div id="ganhadores" class="grid-ganhadores">
+      <div class="status-carregando">Buscando lista de ganhadores...</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Camisa10 - Todos os direitos reservados</p>
+  <p class="footer-aviso">🔞 Jogue com responsabilidade. Proibido para menores de 18 anos.</p>
+</footer>
+
+<script type="module">
+  import { db, auth } from "./firebase.js";
+  import { doc, getDoc, onSnapshot, collection, query, orderBy } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+  const tbody = document.getElementById("tabelaRankingGeralClientes"); 
+
+  async function inicializarRankingRealtime() {
+    try {
+      const q = query(collection(db, "ranking"));
+
+      onSnapshot(q, async (querySnapshot) => {
+        if (!tbody) return;
+        tbody.innerHTML = "";
+
+        const lista = [];
+        
+        // Criamos um array de promessas para buscar os nomes legíveis em paralelo
+        const promessas = [];
+
+        querySnapshot.forEach((docSnap) => {
+          if (docSnap.id !== "_controle_rodadas") {
+            const dadosRanking = docSnap.data();
+            const uidOuNome = docSnap.id;
+
+            // Promessa que vai tentar traduzir o UID para o nome real
+            const buscarNome = async () => {
+              let nomeExibicao = uidOuNome;
+              try {
+                // Busca na sua coleção "usuarios" usando o UID/ID do doc do ranking
+                const userSnap = await getDoc(doc(db, "usuarios", uidOuNome));
+                if (userSnap.exists() && userSnap.data().usuario) {
+                  nomeExibicao = userSnap.data().usuario;
+                }
+              } catch (e) {
+                console.error("Erro ao traduzir UID:", e);
+              }
+              return { nome: nomeExibicao, uidOriginal: uidOuNome, ...dadosRanking };
+            };
+
+            promessas.push(buscarNome());
+          }
+        });
+
+        // Aguarda todas as buscas no banco terminarem
+        const listaTratada = await Promise.all(promessas);
+
+        if (listaTratada.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="status-carregando">Nenhum competidor pontuou no campeonato ainda.</td></tr>`;
+          return;
+        }
+
+        // Ordenação
+        listaTratada.sort((a, b) => {
+          if ((b.pontos || 0) !== (a.pontos || 0)) return (b.pontos || 0) - (a.pontos || 0);
+          if ((b.placaresExatos || 0) !== (a.placaresExatos || 0)) return (b.placaresExatos || 0) - (a.placaresExatos || 0);
+          return (b.tendencias || 0) - (a.tendencias || 0);
+        });
+
+        // Renderiza o Top 10 com o nome correto
+        const top10 = listaTratada.slice(0, 10);
+        top10.forEach((item, index) => {
+          const posicaoTexto = index < 3 ? `${index + 1}°` : `#${index + 1}`;
+          const classePosicao = index < 3 ? ` class="linha-top3 linha-top-${index + 1}"` : "";
+          tbody.innerHTML += `
+            <tr${classePosicao}>
+              <td class="col-pos">${posicaoTexto}</td>
+              <td class="col-nome"><span>${item.nome}</span></td>
+              <td class="col-dados">${item.placaresExatos || 0}</td>
+              <td class="col-dados">${item.tendencias || 0}</td>
+              <td class="col-dados txt-destaque">${item.pontos || 0} pts</td>
+            </tr>
+          `;
+        });
+
+        // Verifica a posição do usuário logado
+        const divSuaPosicao = document.getElementById("suaPosicaoRanking");
+        if (divSuaPosicao) {
+          const usuarioLogado = localStorage.getItem("usuarioLogado");
+          divSuaPosicao.innerHTML = "";
+          if (usuarioLogado) {
+            // Compara ignorando maiúsculas/minúsculas, já que o Firebase Auth
+            // sempre normaliza e-mails para minúsculas (o que muda a "chave" do ranking)
+            const usuarioLogadoNormalizado = usuarioLogado.toLowerCase();
+            const indexUsuario = listaTratada.findIndex(
+              (item) =>
+                (item.nome || "").toLowerCase() === usuarioLogadoNormalizado ||
+                (item.uidOriginal || "").toLowerCase() === usuarioLogadoNormalizado
+            );
+            if (indexUsuario >= 10) {
+              const posicaoReal = indexUsuario + 1;
+              const dadosUsuario = listaTratada[indexUsuario];
+              divSuaPosicao.innerHTML = `
+                <div class="tabela-sua-posicao">
+                  <table>
+                    <tr>
+                      <td class="col-pos">#${posicaoReal}</td>
+                      <td class="col-nome"><span>${dadosUsuario.nome}</span></td>
+                      <td class="col-dados">${dadosUsuario.placaresExatos || 0}</td>
+                      <td class="col-dados">${dadosUsuario.tendencias || 0}</td>
+                      <td class="col-dados txt-destaque">${dadosUsuario.pontos || 0} pts</td>
+                    </tr>
+                  </table>
+                </div>
+              `;
+            }
+          }
+        }
+      });
+
+    } catch (err) {
+      console.error("Erro no Ranking Geral:", err);
+      if (tbody) tbody.innerHTML = `<tr><td colspan="5" class="status-carregando">Erro ao carregar dados do ranking.</td></tr>`;
+    }
+  }
+
+  /* ==========================================================================
+     NOVO: CONFIGURAÇÕES DO INDEX (Contador de Rodadas + Banner Principal)
+     Lê em tempo real de configuracoes/index_site, atualizado pelo Dashboard.
+     ========================================================================== */
+  function inicializarConfigIndexRealtime() {
+    try {
+      onSnapshot(doc(db, "configuracoes", "index_site"), (docSnap) => {
+        const contadorEl = document.getElementById("contadorRodadas");
+        const bannerContainer = document.getElementById("bannerPrincipalContainer");
+        const bannerImg = document.getElementById("bannerPrincipalImg");
+
+        if (!docSnap.exists()) {
+          if (contadorEl) contadorEl.style.display = "none";
+          if (bannerContainer) bannerContainer.style.display = "none";
+          console.warn("Documento configuracoes/index_site não existe no Firestore.");
+          return;
+        }
+
+        const dados = docSnap.data();
+
+        // Contador de rodadas
+        if (contadorEl) {
+          const rodadaAtual = dados.rodadaAtual;
+          const totalRodadas = dados.totalRodadas;
+          if (rodadaAtual || totalRodadas) {
+            contadorEl.textContent = `RODADA ${rodadaAtual ?? "-"} DE ${totalRodadas ?? "-"}`;
+            contadorEl.style.display = "inline-block";
+          } else {
+            contadorEl.style.display = "none";
+          }
+        }
+
+        // Banner principal
+        if (bannerContainer && bannerImg) {
+          if (dados.bannerUrl) {
+            bannerImg.src = dados.bannerUrl;
+            bannerContainer.style.display = "block";
+          } else {
+            bannerContainer.style.display = "none";
+          }
+        }
+      }, (err) => {
+        console.error("Erro ao escutar configuracoes/index_site:", err.code, err.message);
+      });
+    } catch (err) {
+      console.error("Erro ao carregar configurações do Index:", err);
+    }
+  }
+
+  /* ==========================================================================
+     NOVO: ÚLTIMOS GANHADORES (agora administrados pelo Dashboard via Firestore)
+     ========================================================================== */
+  function inicializarGanhadoresRealtime() {
+    const div = document.getElementById("ganhadores");
+    if (!div) return;
+
+    try {
+      const q = query(collection(db, "ganhadores"), orderBy("criadoEm", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        div.innerHTML = "";
+
+        if (querySnapshot.empty) {
+          div.innerHTML = "<div class='status-carregando'>Nenhum histórico de ganhadores disponível no momento.</div>";
+          return;
+        }
+
+        querySnapshot.forEach((docSnap) => {
+          const item = docSnap.data();
+          div.innerHTML += `
+            <div class="card-ganhador">
+              <div class="card-ganhador-topo">
+                <span class="icone-ganhador">🏆</span>
+                <h3>${item.premiacao || 'Premiação'}</h3>
+              </div>
+              <p>Apostador: <strong>${item.nome || 'Não identificado'}</strong></p>
+              <p>${item.descricao || ''}</p>
+              <span>${item.valor || 'R$ 0,00'}</span>
+            </div>
+          `;
+        });
+      }, (err) => {
+        console.error("Erro ao carregar ganhadores:", err);
+        div.innerHTML = "<div class='status-carregando'>Não foi possível carregar os ganhadores.</div>";
+      });
+    } catch (err) {
+      console.error("Erro ao carregar ganhadores:", err);
+      div.innerHTML = "<div class='status-carregando'>Não foi possível carregar os ganhadores.</div>";
+    }
+  }
+
+  /* ==========================================================================
+     NOVO: PORTÃO DE AUTENTICAÇÃO
+     Só começamos a ler o Firestore depois que o Firebase Auth confirmar
+     a sessão. Isso evita "permission-denied" causado por uma corrida entre
+     as leituras e a restauração da sessão logo após o carregamento da página
+     (ex: redirecionamento inteiro de página após o login).
+     ========================================================================== */
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      inicializarRankingRealtime();
+      inicializarConfigIndexRealtime();
+      inicializarGanhadoresRealtime();
+    } else {
+      // Sessão do Firebase Auth não confirmada: manda para o login,
+      // mesmo que exista algum resquício de "usuarioLogado" no localStorage.
+      console.warn("Firebase Auth não autenticado. Redirecionando para login.");
+      localStorage.removeItem("usuarioLogado");
+      window.location.href = "login/login.html";
+    }
+  });
+</script>
+
+<script>
+  const usuarioLogado = localStorage.getItem("usuarioLogado");
+  if (!usuarioLogado) {
+    window.location.href = "login/login.html";
+  } else {
+    document.getElementById("usuarioHeader").textContent = usuarioLogado;
+  }
+
+  function logout() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login/login.html";
+  }
+
+  const btnPerfil = document.getElementById("btnPerfil");
+  const menuPerfil = document.getElementById("menuPerfil");
+
+  if (btnPerfil && menuPerfil) {
+    btnPerfil.addEventListener("click", (e) => {
+      e.stopPropagation();
+      menuPerfil.classList.toggle("ativo");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menuPerfil.contains(e.target) && !btnPerfil.contains(e.target)) {
+        menuPerfil.classList.remove("ativo");
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

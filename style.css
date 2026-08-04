@@ -1,0 +1,652 @@
+/* ==========================
+   RESET & BASE
+========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cor-fundo: #111318;
+  --cor-secundaria: #1f242d;
+  --cor-borda: #2f3744;
+  --cor-verde: #22c55e;
+  --cor-verde-hover: #16a34a;
+  --cor-texto: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--cor-fundo), #1a1d23);
+  color: var(--cor-texto);
+  min-height: 100vh;
+}
+
+/* ==========================
+   HEADER (Mantido Intacto)
+========================== */
+header {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 20px;
+  min-height: 70px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.centro-header {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo {
+  height: 30px;
+}
+
+.perfil-container {
+  position: relative;
+}
+
+.btn-perfil {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: #1f242d;
+  border: 1px solid #2f3744;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-perfil:hover {
+  background: #2a303c;
+}
+
+.btn-perfil img {
+  width: 22px;
+  height: 22px;
+}
+
+.menu-perfil {
+  position: absolute;
+  top: 58px;
+  right: 0;
+  width: 250px;
+  background: #161b22;
+  border: 1px solid #2f3744;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: .25s;
+  z-index: 999;
+}
+
+.menu-perfil.ativo {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.perfil-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.perfil-info img {
+  width: 35px;
+  height: 35px;
+}
+
+.perfil-info div {
+  display: flex;
+  flex-direction: column;
+}
+
+.perfil-info small {
+  color: #8b949e;
+  font-size: 11px;
+}
+
+.perfil-info span {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.menu-perfil a,
+.menu-perfil button {
+  width: 100%;
+  padding: 15px 18px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.menu-perfil a:hover,
+.menu-perfil button:hover {
+  background: #1f242d;
+}
+
+/* ==========================
+   ESTILOS DOS NOVOS BOTÕES DO MENU
+========================== */
+.container-botoes {
+  max-width: 600px;
+  margin: 24px auto 10px auto;
+  padding: 0 15px;
+}
+
+.titulo-boasvindas {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.grid-botoes {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.card-botao-menu {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+  cursor: pointer;
+}
+
+.icone-verde-quadrado {
+  background: linear-gradient(135deg, var(--cor-verde), var(--cor-verde-hover));
+  width: 85px;
+  height: 85px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-botao-menu:hover .icone-verde-quadrado {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(34, 197, 94, 0.35);
+}
+
+/* Garante que a imagem PNG se ajusta perfeitamente dentro do quadrado verde */
+.img-botao-menu {
+  width: 62px;          
+  height: 62px;         
+  object-fit: contain; 
+}
+
+.texto-botao-menu {
+  color: var(--cor-texto);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================
+   CONTAINER SEÇÕES COMUNS (RANKING / GANHADORES)
+========================== */
+.secao {
+  width: 95%;
+  max-width: 600px;
+  margin: 35px auto;
+}
+
+.secao h2 {
+  color: var(--cor-texto);
+  font-size: 24px;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.secao p {
+  color: #8b949e;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* ==========================
+   RANKING
+========================== */
+/* --- NOVO DESIGN DO RANKING PREMIUM --- */
+.ranking-container-novo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.card-ranking-novo {
+  background: rgba(22, 27, 34, 0.8);
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 15px 20px;
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1.2fr;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.card-ranking-novo:hover {
+  transform: translateY(-2px);
+  border-color: #0d6efd;
+  background: #161b22;
+}
+
+.posicao-destaque {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffd700; /* Dourado para posição */
+}
+
+.nome-destaque {
+  text-align: left;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.stat-item {
+  font-size: 0.9rem;
+  color: #8b949e;
+}
+
+.stat-item strong {
+  color: #f0f2f5;
+}
+
+.pontos-destaque {
+  background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+}
+
+/* Ajuste Responsivo para Celular */
+@media (max-width: 768px) {
+  .card-ranking-novo {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: center;
+  }
+  .nome-destaque {
+    text-align: center;
+  }
+}
+
+/* ==========================
+   GANHADORES
+========================== */
+.card-ganhador {
+  background: var(--cor-secundaria);
+  border: 1px solid var(--cor-borda);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+.card-ganhador:last-child {
+  margin-bottom: 0;
+}
+
+.card-ganhador h3 {
+  color: var(--cor-verde);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.card-ganhador p {
+  margin-bottom: 4px;
+  color: var(--cor-texto);
+}
+
+.card-ganhador span {
+  font-size: 20px;
+  color: var(--cor-verde);
+  font-weight: bold;
+  display: block;
+  margin-top: 8px;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+  text-align: center;
+  padding: 25px;
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-fundo);
+  font-size: 13px;
+  color: #8b949e;
+  margin-top: 50px;
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO DO RANKING ULTRA-COMPACTO E RESPONSIVO (SEM BARRA DE ROLAGEM)
+   (Movido do <style> inline do index.html para cá)
+   ========================================================================== */
+.secao-ranking, .secao-ganhadores {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+
+.secao-ranking {
+  margin-top: 16px;
+}
+
+.titulo-secao {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  margin-bottom: 4px;
+}
+
+.subtitulo-secao {
+  font-size: 0.85rem;
+  color: #8b949e;
+  margin-bottom: 20px;
+}
+
+.ranking-responsivo {
+  width: 100%;
+  background-color: var(--cor-secundaria);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  overflow: hidden; /* Corta qualquer intenção de barra de rolagem */
+}
+
+.tabela-ranking {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Força a tabela a respeitar rigidamente as larguras definidas */
+}
+
+.tabela-ranking th {
+  background-color: #161a22;
+  color: #8b949e;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--cor-borda);
+  text-align: center;
+}
+
+.tabela-ranking td {
+  padding: 12px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: 0.85rem;
+  color: var(--cor-texto);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Definição estrita das proporções das colunas para caber em qualquer celular */
+.col-pos {
+  width: 12%;
+  font-weight: 700;
+  color: #ffaa00 !important;
+}
+
+.col-nome {
+  width: 46%;
+  text-align: left !important;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Se o nome for gigantesco ele põe reticências (...) em vez de quebrar a tabela */
+}
+
+.col-nome span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-dados {
+  width: 14%;
+}
+
+.text-verde {
+  color: var(--cor-verde) !important;
+}
+
+.txt-destaque {
+  font-weight: 700;
+  color: var(--cor-verde) !important;
+}
+
+.status-carregando {
+  text-align: center;
+  padding: 25px !important;
+  color: #8b949e;
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+/* Grid de Ganhadores */
+.grid-ganhadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* COMPACTAÇÃO MÁXIMA PARA CELULARES PEQUENOS */
+@media (max-width: 480px) {
+  .tabela-ranking th, 
+  .tabela-ranking td {
+    padding: 10px 4px; /* Diminui a distância entre colunas */
+    font-size: 0.78rem; /* Fonte ligeiramente menor para abraçar o display sem rolar */
+  }
+  
+  .titulo-secao {
+    font-size: 1.15rem;
+  }
+}
+
+/* Posição do usuário logado no ranking */
+.sua-posicao-ranking {
+  margin-top: 14px;
+}
+.tabela-sua-posicao {
+  width: 100%;
+  margin-top: 10px;
+  background-color: var(--cor-secundaria);
+  border: 1px solid var(--cor-verde);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tabela-sua-posicao table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.tabela-sua-posicao td {
+  padding: 12px 8px;
+  font-size: 0.85rem;
+  color: var(--cor-texto);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tabela-sua-posicao .col-pos {
+  width: 12%;
+  font-weight: 700;
+  color: #ffaa00 !important;
+}
+
+.tabela-sua-posicao .col-nome {
+  width: 46%;
+  text-align: left !important;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tabela-sua-posicao .col-nome span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tabela-sua-posicao .col-dados {
+  width: 14%;
+}
+
+/* ==========================================================================
+   BANNER PRINCIPAL E CONTADOR DE RODADAS (Gerenciáveis pelo Dashboard)
+   ========================================================================== */
+.banner-principal-container {
+  max-width: 600px;
+  margin: 5px auto 0;
+  padding: 0 15px;
+}
+
+.banner-principal-img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--cor-borda);
+  object-fit: cover;
+}
+
+.contador-rodadas {
+  display: inline-block;
+  background-color: var(--cor-secundaria);
+  border: 1px solid var(--cor-verde);
+  color: var(--cor-verde);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   VISUAL "CASA DE APOSTAS" — destaques (100% aditivo)
+   ========================================================================== */
+
+/* Selo "AO VIVO" no título do ranking */
+.badge-vivo {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ff4d4d;
+  background: rgba(255, 77, 77, 0.12);
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  padding: 3px 8px;
+  border-radius: 10px;
+  vertical-align: middle;
+  margin-left: 6px;
+  letter-spacing: 0.5px;
+  animation: pulso-vivo 1.8s infinite;
+}
+
+@keyframes pulso-vivo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Destaque para o Top 3 do ranking */
+.linha-top3 td {
+  font-weight: 600;
+}
+
+.linha-top-1 {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.12), transparent);
+  border-left: 3px solid #ffd700;
+}
+
+.linha-top-2 {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.10), transparent);
+  border-left: 3px solid #c0c0c0;
+}
+
+.linha-top-3 {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.10), transparent);
+  border-left: 3px solid #cd7f32;
+}
+
+.linha-top-1 .col-pos,
+.linha-top-2 .col-pos,
+.linha-top-3 .col-pos {
+  font-size: 1rem;
+}
+
+.linha-top-1 .col-pos {
+  color: #ffd700 !important;
+}
+
+.linha-top-2 .col-pos {
+  color: #c0c0c0 !important;
+}
+
+.linha-top-3 .col-pos {
+  color: #cd7f32 !important;
+}
+
+/* Cabeçalho do card de ganhador com ícone em destaque */
+.card-ganhador-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.icone-ganhador {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.card-ganhador-topo h3 {
+  margin-bottom: 0;
+}
+
+/* Aviso de jogo responsável no rodapé */
+.footer-aviso {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #6b7280;
+}

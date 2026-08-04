@@ -1,0 +1,183 @@
+/* ==========================
+   RESET & BASE
+========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cor-fundo: #111318;
+  --cor-secundaria: #1f242d;
+  --cor-borda: #2f3744;
+  --cor-verde: #22c55e;
+  --cor-verde-hover: #16a34a;
+  --cor-texto: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--cor-fundo), #1a1d23);
+  color: var(--cor-texto);
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* ==========================
+   HEADER
+========================== */
+header {
+  width: 100%;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  padding: 12px 20px;
+  min-height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header img {
+  height: 30px;
+}
+
+/* ==========================
+   LAYOUT CONTAINER
+========================== */
+.historico-container {
+  width: 92%;
+  max-width: 480px;
+  margin: 25px auto;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.topo h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+/* Botão Voltar */
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--cor-secundaria);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background: #2a303c;
+  transform: translateY(-1px);
+}
+
+/* ==========================
+   LISTA E CARDS DE HISTÓRICO
+========================== */
+#listaHistorico {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.carregando {
+  text-align: center;
+  color: #8b949e;
+  font-size: 14px;
+}
+
+/* Card Principal do Bilhete */
+.card-bilhete-historico {
+  background: var(--cor-secundaria);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-verde);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cabecalho-bilhete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3a4150;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.numero-bilhete {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+.data-bilhete {
+  font-size: 0.75rem;
+  color: #8b949e;
+}
+
+/* Linhas internas contendo os palpites */
+.lista-palpites {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.palpite-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.times-palpite {
+  color: var(--cor-texto);
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: left;
+  max-width: 72%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.separador {
+  color: #6b7280;
+  margin: 0 4px;
+}
+
+.placar-palpite {
+  background: var(--cor-fundo);
+  border: 1px solid #3a4150;
+  color: #ffca28; /* Amarelo clássico mantido para destaque do placar do histórico */
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  min-width: 55px;
+  text-align: center;
+}
+
+/* Responsividade Sutil */
+@media (max-width: 480px) {
+  .historico-container {
+    width: 94%;
+  }
+  
+  .topo h2 {
+    font-size: 1.15rem;
+  }
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camisa10</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="palpites.css">
+</head>
+
+<body>
+  
+<header>
+  <a href="../index.html" class="menu-lateral">
+    <img src="/img/icon_inicio.png" alt="Início">
+    <span>INÍCIO</span>
+  </a>
+
+  <div class="centro-header">
+    <img src="../img/logo_site_camisa_10.png" class="logo">
+  </div>
+
+  <div class="perfil-container">
+    <button id="btnPerfil" class="btn-perfil">
+      <img src="../img/icon_user.png" alt="Usuário">
+    </button>
+
+    <div id="menuPerfil" class="menu-perfil">
+      <div class="perfil-info">
+        <img src="../img/icon_user.png" alt="">
+        <div>
+          <small>Olá:</small>
+          <span id="usuarioHeader"></span>
+        </div>
+      </div>
+
+      <a href="/historico/historico.html">
+        📜 Histórico de Apostas
+      </a>
+
+      <a href="/info/contato.html">
+        📞 Contato / Suporte
+      </a>
+
+      <a href="/info/ajuda_regras.html">
+        ❓ Ajuda / Regulamento
+      </a>
+
+      <button onclick="logout()">
+        🚪 Sair do App
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="container">
+  <img id="bannerRodada" class="banner" src="/img/banner_test.png" alt="Banner da Rodada">
+</div>
+  
+  <div class="container">
+    <h3>FAÇA SEUS PALPITES</h3>
+    <div id="listaJogos">Carregando jogos...</div>
+    
+    <button onclick="adicionarBilhete()">
+      ADICIONAR À PRANCHETA
+    </button>
+  </div>
+</main>
+
+<div class="container-flutuante-acoes">
+  <button class="btn-flutuante" onclick="togglePrancheta()">
+    📋
+    <span id="contador">0</span>
+  </button>
+  <div id="badgeFinalizar" class="badge-pagamento" onclick="togglePrancheta()">
+    Finalizar Pagamento
+  </div>
+</div>
+
+<div id="modalOverlay" class="modal-overlay" onclick="togglePrancheta()"></div>
+
+<div id="minhaPrancheta" class="modal-prancheta">
+  <div class="modal-header">
+    <h3>Meus Bilhetes</h3>
+    <button class="btn-fechar-x" onclick="togglePrancheta()">×</button>
+  </div>
+
+  <div id="itensPrancheta"></div>
+
+  <div class="resumo-financeiro">
+    <div class="resumo-linha">
+      <span>Quantidade de bilhetes:</span>
+      <span id="resumoQtd">0</span>
+    </div>
+    <div class="resumo-linha total">
+      <span>Total a pagar:</span>
+      <span id="resumoTotal">R$ 0,00</span>
+    </div>
+  </div>
+
+  <button id="btnEnviarBilhetes" onclick="enviarTodosOsBilhetes()">
+    ENVIAR TODOS OS BILHETES
+  </button>
+
+  <button class="btn-fechar" onclick="togglePrancheta()">
+    Fechar
+  </button>
+</div>
+<footer class="footer">
+  <p>© 2026 Camisa10 - Todos os direitos reservados</p>
+  <p class="footer-aviso">🔞 Jogue com responsabilidade. Proibido para menores de 18 anos.</p>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  function logout() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "../login/login.html";
+  }
+
+  const usuario = localStorage.getItem("usuarioLogado");
+
+  if (!usuario) {
+    window.location.href = "../login/login.html";
+  } else {
+    document.getElementById("usuarioHeader").textContent = usuario;
+  }
+
+  const btnPerfil = document.getElementById("btnPerfil");
+  const menuPerfil = document.getElementById("menuPerfil");
+
+  btnPerfil.addEventListener("click", (e) => {
+    e.stopPropagation();
+    menuPerfil.classList.toggle("ativo");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      !menuPerfil.contains(e.target) &&
+      !btnPerfil.contains(e.target)
+    ) {
+      menuPerfil.classList.remove("ativo");
+    }
+  });
+</script>
+
+<script type="module" src="/pag_palpites/palpites.js"></script>
+
+</body>
+</html>

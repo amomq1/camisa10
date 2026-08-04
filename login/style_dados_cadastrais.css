@@ -1,0 +1,351 @@
+/* ==========================
+   RESET & BASE
+========================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+:root {
+    --cor-fundo: #111318;
+    --cor-secundaria: #1f242d;
+    --cor-borda: #2f3744;
+    --cor-verde: #22c55e;
+    --cor-verde-hover: #16a34a;
+    --cor-texto: #ffffff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--cor-fundo), #1a1d23);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 40px 20px;
+    color: var(--cor-texto);
+}
+
+header img {
+    max-width: 160px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ==========================
+   CONTAINERS (CARDS)
+========================== */
+.cadastro,
+.login {
+    background: var(--cor-secundaria);
+    padding: 40px 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid var(--cor-borda);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--cor-texto);
+    margin-bottom: 25px;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================
+   INPUTS
+========================== */
+input {
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    background: var(--cor-fundo);
+    border: 1px solid #4b5563;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--cor-verde);
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+}
+
+input::placeholder {
+    color: #6b7280;
+}
+
+/* ==========================
+   ESTILO DO CAMPO DE SENHA (OLHINHO)
+========================== */
+.campo-senha {
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+/* Remove o margin original do input de dentro da div para não duplicar espaço */
+.campo-senha input {
+    margin-bottom: 0;
+    padding-right: 45px; /* Abre espaço para o olho não ficar em cima do texto */
+}
+
+.campo-senha i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.campo-senha i:hover {
+    color: var(--cor-verde);
+}
+
+/* ==========================
+   BOTÕES
+========================== */
+button {
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--cor-verde), var(--cor-verde-hover));
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #26d064, #18b453);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.35);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Links alternativos de navegação */
+.cadastro-link {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-top: 20px;
+}
+
+.cadastro-link a {
+    color: var(--cor-verde);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cadastro-link a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================
+   SUPORTE & CONTATO
+========================== */
+.suporte-contato {
+    margin-top: 15px;
+    text-align: center;
+    max-width: 360px;
+}
+
+.suporte-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cor-texto);
+    margin-bottom: 5px;
+}
+
+.suporte-texto {
+    font-size: 14px;
+    color: #8b949e;
+    margin-bottom: 15px;
+}
+
+.redes-sociais {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+.whatsapp {
+    background: #12a54b;
+}
+
+.instagram {
+    background: #e1306c;
+}
+
+/* ==========================
+   TEXTO DE DICA/EXEMPLO ABAIXO DOS CAMPOS
+========================== */
+.dica-campo {
+    text-align: left;
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: -12px;
+    margin-bottom: 16px;
+    padding-left: 4px;
+    font-style: italic;
+}
+
+/* ==========================
+   CAIXINHA DE TERMOS (CADASTRO)
+========================== */
+.termo-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    text-align: left;
+    margin: 4px 0 16px;
+}
+
+.termo-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 0;
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--cor-verde);
+    cursor: pointer;
+}
+
+.termo-container label {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #94a3b8;
+}
+
+.termo-container button.link-termos {
+    width: auto;
+    height: auto;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    font: inherit;
+    font-weight: 600;
+    color: var(--cor-verde);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.termo-container button.link-termos:hover {
+    color: var(--cor-verde-hover);
+    transform: none;
+    box-shadow: none;
+}
+
+/* ==========================
+   MODAL DE TERMOS E REGRAS
+========================== */
+.modal-termos-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-termos-overlay.ativo {
+    display: flex;
+}
+
+.modal-termos-conteudo {
+    background: var(--cor-secundaria);
+    width: 90%;
+    max-width: 420px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    border: 1px solid var(--cor-borda);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    position: relative;
+    text-align: left;
+}
+
+.modal-termos-conteudo h3 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    color: var(--cor-verde);
+    font-size: 18px;
+}
+
+.modal-termos-conteudo ul {
+    padding-left: 20px;
+    margin: 0 0 20px;
+    list-style: disc;
+}
+
+.modal-termos-conteudo li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+.modal-termos-fechar {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.modal-termos-fechar:hover {
+    color: var(--cor-texto);
+}
+
+.modal-termos-btn-fechar {
+    width: 100%;
+    height: 46px;
+    margin-top: 0;
+}

@@ -1,0 +1,233 @@
+/* ==========================
+   RESET & BASE (Cores e Fontes Camisa10)
+========================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+:root {
+  --cor-fundo: #111318;
+  --cor-secundaria: #1f242d;
+  --cor-borda: #2f3744;
+  --cor-verde: #22c55e;
+  --cor-verde-hover: #16a34a;
+  --cor-texto: #ffffff;
+  --cor-azul: #3b82f6;
+  --cor-azul-hover: #60a5fa;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--cor-fundo), #1a1d23);
+  color: var(--cor-texto);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ==========================
+   HEADER OFICIAL (Com a logo)
+========================== */
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 20px;
+  min-height: 70px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  background: var(--cor-fundo);
+}
+
+.logo {
+  height: 30px;
+}
+
+/* ==========================
+   ESTRUTURA DE CONTEÚDO
+========================== */
+.container-pagina {
+  width: 95%;
+  max-width: 600px;
+  margin: 35px auto;
+  padding: 0 15px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cor-texto);
+  margin-bottom: 25px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  font-size: 18px;
+  color: var(--cor-verde);
+  margin-top: 25px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  border-left: 3px solid var(--cor-verde);
+  padding-left: 10px;
+}
+
+h3 {
+  font-size: 15px;
+  color: var(--cor-texto);
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+p {
+  color: #8b949e;
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.text-destaque {
+  color: var(--cor-texto);
+  font-weight: 600;
+  text-align: center;
+  margin: 20px 0 10px 0;
+}
+
+/* Listas do Regulamento */
+ul, ol {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+li {
+  color: #e6edf3;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+li strong {
+  color: var(--cor-verde);
+}
+
+em {
+  color: #8b949e;
+  font-style: italic;
+}
+
+/* ==========================
+   BOTÃO VOLTAR
+========================== */
+.wrapper-voltar {
+  width: 95%;
+  max-width: 600px;
+  margin: 20px auto 0 auto;
+  padding: 0 15px;
+}
+
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--cor-borda);
+  color: #e6edf3;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background: var(--cor-secundaria);
+  border-color: var(--cor-verde);
+  color: var(--cor-verde);
+}
+
+/* ==========================
+   BOTÕES RETANGULARES DE CONTATO
+========================== */
+.wrapper-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.wrapper-botoes form {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  padding: 14px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  background: var(--cor-secundaria);
+  color: var(--cor-texto);
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
+/* Varições de Cores dos Botões */
+button.btn-ajuda {
+  background: linear-gradient(135deg, var(--cor-azul), var(--cor-azul-hover));
+  border: none;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+}
+
+button.btn-ajuda:hover {
+  background: linear-gradient(135deg, #60a5fa, #93c5fd);
+}
+
+
+button.btn-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+}
+
+button.btn-whatsapp:hover {
+  background: #1ebd59;
+}
+
+button.btn-instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #ffffff;
+  border: none;
+}
+
+button.btn-instagram:hover {
+  opacity: 0.9;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+  text-align: center;
+  padding: 25px;
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-fundo);
+  font-size: 13px;
+  color: #8b949e;
+  margin-top: 50px;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style_dados_cadastrais.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    
+    <header>
+        <img src="/img/logo_site_camisa_10.png" alt="Logo">
+    </header>
+
+    <div class="cadastro">
+        <h2>Cadastro</h2>
+
+        <input type="text" id="cadUsuario" placeholder="Usuário">
+        <p class="dica-campo">Ex: joao_silva123</p>
+        
+        <div class="campo-senha">
+            <input type="password" id="cadSenha" placeholder="Senha">
+            <i class="fa-solid fa-eye-slash" id="toggleSenhaCad"></i>
+        </div>
+        
+        <input type="text" id="cadInstagram" placeholder="@Instagram (Opcional)">
+        <input type="tel" id="cadTelefone" placeholder="Telefone">
+
+        <div class="termo-container">
+            <input type="checkbox" id="cadTermos">
+            <label for="cadTermos">
+                Eu declaro que possuo 18 anos ou mais, que todas as informações fornecidas são verdadeiras e que eu aceito os
+                <button type="button" id="abrirTermos" class="link-termos">termos</button>.
+            </label>
+        </div>
+
+        <button onclick="cadastrar()">Cadastrar</button>
+    
+        <p class="cadastro-link">
+            Já possui uma conta?
+            <a href="login.html">Fazer login</a>
+        </p>
+        
+    </div>
+
+    <div class="suporte-contato">
+        <p class="suporte-titulo">Está tendo algum problema?</p>
+        <p class="suporte-texto">
+            Entre em contato pelo WhatsApp ou Instagram
+        </p>
+
+        <div class="redes-sociais">
+            <a href="https://wa.me/+5574999570458" target="_blank" class="social-btn whatsapp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+
+            <a href="https://instagram.com/aposte_camisa10" target="_blank" class="social-btn instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </div>
+
+<div id="modalTermos" class="modal-termos-overlay">
+    <div class="modal-termos-conteudo">
+        <span class="modal-termos-fechar" id="fecharTermos">&times;</span>
+        <h3>Termos e Regras</h3>
+        <ul>
+            <li>É necessário ter 18 anos ou mais para se cadastrar.</li>
+            <li>Todas as informações fornecidas no cadastro devem ser verdadeiras.</li>
+            <li>O usuário é responsável pela guarda e sigilo de sua senha.</li>
+            <li>É proibido criar mais de uma conta por pessoa.</li>
+            <li>Dados falsos ou incompletos podem levar à suspensão ou exclusão da conta.</li>
+            <li>O suporte pode ser contatado pelo WhatsApp ou Instagram em caso de dúvidas.</li>
+        </ul>
+        <button type="button" id="fecharTermosBtn" class="modal-termos-btn-fechar">Fechar</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="./dados_cadastrais.js"></script>
+
+</body>
+</html>
